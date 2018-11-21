@@ -1,12 +1,23 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
+  <div style="height:100%;" id="app">
+    <view-box ref="viewBox">
+      <router-view></router-view>
+      <TabBar></TabBar>
+    </view-box>
   </div>
 </template>
 
 <script>
+//自己组建
+import TabBar from './components/tabbar/tabbar';
+//UI库组建
+import { ViewBox } from 'vux';
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    ViewBox,
+    TabBar
+  }
 }
 </script>
 
@@ -15,5 +26,10 @@ export default {
 
 body {
   background-color: #fbf9fe;
+}
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 </style>
