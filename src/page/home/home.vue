@@ -8,7 +8,7 @@
           :offset="0"
           :check-sticky-support="false"
           >
-          <tab v-model="tabIndex" :line-width="1" prevent-default @on-before-index-change="switchTabItem">
+          <tab bar-active-color="#FF544F" :scroll-threshold="5" v-model="tabIndex" :line-width="1" prevent-default @on-before-index-change="switchTabItem">
             <tab-item selected>All</tab-item>
             <tab-item>Good</tab-item>
             <tab-item>Share</tab-item>

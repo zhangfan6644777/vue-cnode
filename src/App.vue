@@ -32,4 +32,10 @@ html, body {
   width: 100%;
   overflow-x: hidden;
 }
+.vux-tab .vux-tab-item.vux-tab-selected{
+  color: #FF544F!important;
+}
+.weui-tabbar__item.weui-bar__item_on .weui-tabbar__label{
+  color: #FF544F!important;
+}
 </style>
