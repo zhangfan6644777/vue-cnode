@@ -22,19 +22,21 @@
           <div @click="enterTopicDetails">{{item.title}}</div>
           <div><img @click="enterUserInfo" :src="item.author.avatar_url"/><span>{{item.reply_count}}/{{item.visit_count}}</span><span>{{item.last_reply_at}}</span></div>
         </div>
+        <load-more v-if="loadmoreShow" :tip="'正在加载'"></load-more>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Tab, TabItem, Sticky } from 'vux';
+import { Tab, TabItem, Sticky, LoadMore } from 'vux';
 import { mapState, mapActions } from 'vuex';
 export default {
   data() {
     return {
       tabIndex: 0,
       loading: true,
+      loadmoreShow: false,
       params: {
         limit: 10,
         page: 1
@@ -45,23 +47,41 @@ export default {
     topicList: state => state.home.topicList
   }),
   created() {
-    this.getTopicList(this.params);
-    setTimeout(() => {
-      this.loading = false;
-    }, 1000);
+    this.initStatus();
+    this.getList();
   },
   mounted() {
   },
   components: {
     Tab,
     TabItem,
-    Sticky
+    Sticky,
+    LoadMore
   },
   methods: {
     ...mapActions('home', [
-      'getTopicList'
+      'getTopicList',
+      'loadMoreTopicList'
     ]),
+    initStatus() {
+      this.params = {
+        limit: 10,
+        page: 1
+      };
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 500);
+    },
+    async getList() {
+      this.$vux.loading.show({
+        text: 'loading'
+      });
+      await this.getTopicList(this.params);
+      this.$vux.loading.hide();
+    },
     async switchTabItem (index) {
+      this.initStatus();
       const tab = ['all', 'good', 'share', 'ask', 'job' ];
       this.params.tab = tab[index];
       this.$vux.loading.show({
@@ -73,12 +93,16 @@ export default {
     },
     async loadMore() {
       this.loading = true;
+      this.loadmoreShow = true;
       this.params.page++;
-      const res = await this.getTopicList(this.params);
-      console.log(res);
-      if (res.length === 10) {
-        this.loading = false;
-      }
+      setTimeout(async () => {
+        const res = await this.loadMoreTopicList(this.params);
+        if (res.length === 10) {
+          this.loading = false;
+        }
+        this.loadmoreShow = false;
+      }, 3000);
+
     },
     enterTopicDetails() {
       alert(1);

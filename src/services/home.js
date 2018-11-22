@@ -4,7 +4,8 @@ import {
 } from './url';
 class Service {
   async getTopicList(params) {
-    const res = await axios.GET(http_get_topicList, params);
+    const url = http_get_topicList();
+    const res = await axios.GET(url, params);
     console.log(res);
     return res;
   }
