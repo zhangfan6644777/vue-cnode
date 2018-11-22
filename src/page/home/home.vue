@@ -1,5 +1,5 @@
 <template>
-  <div class="homeContainer">
+  <div class="homeContainer"   v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
     <div class="homeContent">
       <div style="height:44px;">
         <sticky
@@ -34,6 +34,7 @@ export default {
   data() {
     return {
       tabIndex: 0,
+      loading: true,
       params: {
         limit: 10,
         page: 1
@@ -45,6 +46,9 @@ export default {
   }),
   created() {
     this.getTopicList(this.params);
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
   },
   mounted() {
   },
@@ -66,6 +70,15 @@ export default {
       const res = await this.getTopicList(this.params);
       this.$vux.loading.hide()
       this.tabIndex = index;
+    },
+    async loadMore() {
+      this.loading = true;
+      this.params.page++;
+      const res = await this.getTopicList(this.params);
+      console.log(res);
+      if (res.length === 10) {
+        this.loading = false;
+      }
     },
     enterTopicDetails() {
       alert(1);

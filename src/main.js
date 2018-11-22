@@ -6,7 +6,9 @@ import App from './App'
 import router from './router/index';
 import store from './store/index';
 import  { LoadingPlugin } from 'vux';
+import { InfiniteScroll } from 'mint-ui';
 
+Vue.use(InfiniteScroll);
 Vue.use(LoadingPlugin)
 FastClick.attach(document.body)
 
