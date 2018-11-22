@@ -1,18 +1,21 @@
+import HomeSerrvice from '../../services/home';
 const state = {
   topicList: []
 };
 
 const mutations = {
   GET_TOPIC(state, topicList) {
-    state.topicList = topicList;
+    state.topicList = [...state.topicList,...topicList];
   }
 };
 
 const actions = {
-  async getTopicList({commit}) {
+  async getTopicList({commit}, params) {
     //handle api
-    const topicList = [1,2];
-    commit('GET_TOPIC', topicList);
+    console.log(params);
+    const res = await HomeSerrvice.getTopicList(params);
+    commit('GET_TOPIC', res.data);
+    return res.data;
   }
 };
 
