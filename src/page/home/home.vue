@@ -1,5 +1,5 @@
 <template>
-  <div class="homeContainer"   v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+  <div class="homeContainer" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
     <div class="homeContent">
       <div style="height:44px;">
         <sticky
@@ -9,18 +9,27 @@
           :check-sticky-support="false"
           >
           <tab v-model="tabIndex" :line-width="1" prevent-default @on-before-index-change="switchTabItem">
-            <tab-item selected>全部</tab-item>
-            <tab-item>精华</tab-item>
-            <tab-item>分享</tab-item>
-            <tab-item>问答</tab-item>
-            <tab-item>招聘</tab-item>
+            <tab-item selected>All</tab-item>
+            <tab-item>Good</tab-item>
+            <tab-item>Share</tab-item>
+            <tab-item>Ask</tab-item>
+            <tab-item>Job</tab-item>
           </tab>
         </sticky>
       </div>
       <div class="topList">
         <div class="topicItem" v-for="item in topicList">
-          <div @click="enterTopicDetails">{{item.title}}</div>
-          <div><img @click="enterUserInfo" :src="item.author.avatar_url"/><span>{{item.reply_count}}/{{item.visit_count}}</span><span>{{item.last_reply_at}}</span></div>
+          <div class="topicTitle" @click="enterTopicDetails">
+            <span>{{getTab(item.top,item.good,item.tab)}}</span>
+            <span>{{item.title}}</span>
+          </div>
+          <div class="topicContent">
+            <img class="avatar" @click="enterUserInfo" :src="item.author.avatar_url"/>
+            <div class="topicInfo">
+              <p><span>{{item.author.loginname}}</span><span>{{item.reply_count}}/{{item.visit_count}}</span></p>
+              <p><span>replyAt {{moment(item.last_reply_at).format('YYYY-MM-DD')}}</span><span>creatAt {{moment(item.last_reply_at).format('YYYY-MM-DD')}}</span></p>
+            </div>
+          </div>
         </div>
         <load-more v-if="loadmoreShow" :tip="'正在加载'"></load-more>
       </div>
@@ -31,6 +40,7 @@
 <script>
 import { Tab, TabItem, Sticky, LoadMore } from 'vux';
 import { mapState, mapActions } from 'vuex';
+import moment from 'moment';
 export default {
   data() {
     return {
@@ -40,7 +50,8 @@ export default {
       params: {
         limit: 10,
         page: 1
-      }
+      },
+      moment: moment
     }
   },
   computed: mapState({
@@ -72,6 +83,20 @@ export default {
       setTimeout(() => {
         this.loading = false;
       }, 500);
+    },
+    getTab(top,good,tab) {
+      if (top) {
+        return '置顶';
+      } else if (good) {
+        return '精华';
+      } else {
+        const tabArray = {
+          'ask': '问答',
+          'share': '分享',
+          'job': '招聘'
+        };
+        return tabArray[tab];
+      }
     },
     async getList() {
       this.$vux.loading.show({
@@ -113,3 +138,6 @@ export default {
   }
 }
 </script>
+<style lang='less' scoped>
+@import './home.less';
+</style>
