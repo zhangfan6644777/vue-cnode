@@ -3,7 +3,8 @@ import Router from 'vue-router';
 import Home from '@/page/home/home';
 import Publish from '@/page/publish/publish';
 import Message from '@/page/message/message';
-import Mine from '@/page/mine/mine';
+import PersonalCenter from '@/page/personalcenter/personalcenter';
+import TopicDetail from '@/page/topicDetail/topicDetail';
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -23,9 +24,14 @@ export default new Router({
       component: Message
     },
     {
-      path: '/mine',
-      name: 'mine',
-      component: Mine
+      path: '/personalcenter',
+      name: 'personalcenter',
+      component: PersonalCenter
+    },
+    {
+      path: '/topic_detail/:id',
+      name: 'topicDetail',
+      component: TopicDetail
     },
   ]
 })
