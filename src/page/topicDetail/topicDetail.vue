@@ -11,6 +11,22 @@
       </div>
     </div>
     <vue-markdown :source="topicDetail.content"></vue-markdown>
+    <section class="commentTitle">
+      <h3>{{topicDetail.reply_count}}回复</h3>
+    </section>
+    <div class="commentList">
+      <div class="commentItem" v-for="(item, key) in topicDetail.replies">
+        <div class="commentInfo">
+          <img :src="item.author.avatar_url" alt="">
+          <p><span>{{item.author.loginname}}</span><span>{{key+1}}楼</span></p>
+        </div>
+        <vue-markdown :source="item.content"></vue-markdown>
+        <div class="commentBottom">
+          <span>{{moment(item.create_at).format('YYYY-MM-DD')}}</span>
+          <p><span><i></i>{{item.ups.length}}</span><span><i></i></span></p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

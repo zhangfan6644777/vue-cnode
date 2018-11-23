@@ -2,7 +2,7 @@
   margin: calc(300vw/75);
   .title{
     padding: calc(160vw/75);
-    border-radius: calc(200vw/75);
+    border-radius: calc(100vw/75);
     background-color: #f0f0f0;
   }
   .authorInfo{
@@ -38,13 +38,13 @@
     }
   }
   .markdown-text{
-    margin-top: calc(200vw/75);
+    margin-top: 5px;
     img{
       margin: auto;
       max-width: 100% !important;
     }
     a{
-      display: block;
+      display: inline-block;
       word-wrap:break-word;
       max-width: 100%;
       color:#4078c0;
@@ -63,6 +63,42 @@
     code{
     white-space: normal;
     word-break: break-all;
+    }
+  }
+  .commentTitle{
+    padding: calc(160vw/75);
+  }
+  .commentList{
+    border-top: 1px solid #e5e5e5;
+    margin-top: 5px;
+    .commentItem{
+      border-bottom: 1px solid #e5e5e5;
+      margin-top: 10px;
+      .commentInfo{
+        display: flex;
+        align-items: center;
+        img{
+          width: calc(800vw/75);
+          height: calc(800vw/75);
+        }
+        p{
+          margin-left: calc(200vw/75);
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+      .commentBottom{
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        >p{
+          width: calc(400vw/75);
+          text-align: right;
+        }
+      }
     }
   }
 }
