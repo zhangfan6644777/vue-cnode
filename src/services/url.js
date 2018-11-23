@@ -20,4 +20,4 @@ export const http_post_markOne = (msgId) => `${HOST}/api/v1/message/mark_one/${m
 //myTopic
 
 //accesstoken
-export const http_get_accesstoken = `${HOST}/api/v1/accesstoken`;
+export const http_post_accesstoken = () => `${HOST}/api/v1/accesstoken`;

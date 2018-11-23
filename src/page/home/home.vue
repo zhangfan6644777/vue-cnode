@@ -19,7 +19,7 @@
       </div>
       <div class="topList">
         <div class="topicItem" v-for="item in topicList">
-          <div class="topicTitle" @click="enterTopicDetails">
+          <div class="topicTitle" @click="enterTopicDetails(item)">
             <span>{{getTab(item.top,item.good,item.tab)}}</span>
             <span>{{item.title}}</span>
           </div>
@@ -129,8 +129,10 @@ export default {
       }, 3000);
 
     },
-    enterTopicDetails() {
-      alert(1);
+    enterTopicDetails(item) {
+      this.$router.push({
+        path: `/topic_detail/${item.id}`
+      })
     },
     enterUserInfo() {
       alert(2);

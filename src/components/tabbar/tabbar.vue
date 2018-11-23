@@ -8,9 +8,9 @@
       <!-- <img slot="icon" src="../assets/demo/icon_nav_msg.png"> -->
       <span slot="label">publish</span>
     </tabbar-item>
-    <tabbar-item badge="2" link="/mine">
+    <tabbar-item badge="2" link="/personalcenter">
       <!-- <img slot="icon" src="../assets/demo/icon_nav_cell.png"> -->
-      <span slot="label">mine</span>
+      <span slot="label">personalcenter</span>
     </tabbar-item>
   </tabbar>
 </template>
