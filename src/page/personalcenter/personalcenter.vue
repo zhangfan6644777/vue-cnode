@@ -1,11 +1,11 @@
 <template>
   <div class="centerContainer">
-    <div v-if="userInfo" class="userInfoContainer">
+    <div v-if="loginInfo && userInfo" class="userInfoContainer">
       <div class="mineUserInfo">
-        <img :src="userInfo.avatar_url"/>
+        <img class="avatar" :src="userInfo.avatar_url"/>
         <p>
-          <span></span>
-          <span></span>
+          <span>{{userInfo.loginname}}</span>
+          <span>积分{{userInfo.score}}</span>
         </p>
       </div>
       <div class="myTopicContainer">
@@ -39,12 +39,13 @@ export default {
     }
   },
   created() {
-    console.log(this.userInfo);
-    if (this.userInfo) {//已经登录
-
+    console.log(this.loginInfo);
+    if (this.loginInfo) {//已经登录
+      this.getUserInfo(this.loginInfo.loginname);
     }
   },
   computed: mapState({
+    loginInfo: state => state.personalCenter.loginInfo,
     userInfo: state => state.personalCenter.userInfo
   }),
   mounted() {
@@ -52,7 +53,8 @@ export default {
   },
   methods: {
     ...mapActions('personalCenter', [
-      'login'
+      'login',
+      'getUserInfo'
     ]),
     accessTokenChange(value) {
       this.inputValue = value;

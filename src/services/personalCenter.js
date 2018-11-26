@@ -10,9 +10,9 @@ class Service {
     console.log('res',res);
     return res;
   }
-  async getUserInfo(params) {
-    const url = http_get_userinfo();
-    const res = await axios.GET(url, params);
+  async getUserInfo(loginname) {
+    const url = http_get_userinfo(loginname);
+    const res = await axios.GET(url);
     console.log('res',res);
     return res;
   }

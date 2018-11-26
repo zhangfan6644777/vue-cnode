@@ -11,7 +11,7 @@ export const http_post_upsReply = (replyId) => `${HOST}/api/v1/reply/${replyId}/
 //publish
 //export const http_get_topicDetails = HOST + '/api/v1/topic';
 //mine
-export const http_get_userinfo = `${HOST}/api/v1/user/alsotang`;
+export const http_get_userinfo = (loginname) => `${HOST}/api/v1/user/${loginname}`;
 export const http_get_userCollectTopic = (loginname) => `${HOST}/api/v1/topic_collect/${loginname}`;
 //message
 export const http_get_message = () => `${HOST}/api/v1/messages`;

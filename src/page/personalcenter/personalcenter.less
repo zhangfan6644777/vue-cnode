@@ -1,12 +1,25 @@
 .mineUserInfo{
   width: 100%;
   height: calc(4000vw/75);
-  background: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .avatar{
+    width: calc(1200vw/75);
+    height: calc(1200vw/75);
+    margin: calc(1200vw/75) auto 0 auto;
+  }
+  p{
+    width: 90%;
+    margin: 0 auto calc(100vw/75) auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 .centerContainer{
   height: 100%;
   .userInfoContainer{
-
   }
   .noLoginContainer{
     height: 100%;
