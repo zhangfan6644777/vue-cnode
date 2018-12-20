@@ -4,15 +4,37 @@
       <div class="mineUserInfo">
         <img class="avatar" :src="userInfo.avatar_url"/>
         <p>
-          <span>{{userInfo.loginname}}</span>
-          <span>积分{{userInfo.score}}</span>
+          <span>Sign In: {{moment(userInfo.create_at).format('YYYY-MM-DD')}}</span>
+          <span>Score: {{userInfo.score}}</span>
         </p>
       </div>
+      <div style="height:44px;">
+        <sticky
+          scroll-box="vux_view_box_body"
+          ref="sticky"
+          :offset="0"
+          :check-sticky-support="false"
+          >
+          <tab :line-width=2 active-color='#fc378c' v-model="tabIndex">
+            <tab-item class="vux-center" :selected="listTitle === item.title" v-for="(item, index) in tabList" @click="listTitle = item.title" :key="index">{{item.title}}</tab-item>
+          </tab>
+        </sticky>
+      </div>
       <div class="myTopicContainer">
-        <tab bar-active-color="#FF544F" :scroll-threshold="2" v-model="tabIndex" :line-width="1" prevent-default @on-before-index-change="switchTabItem">
-          <tab-item selected>All</tab-item>
-          <tab-item>Good</tab-item>
-        </tab>
+        <swiper v-model="tabIndex" :show-dots="false">
+          <swiper-item v-for="(item, index) in tabList" :key="index">
+            <div v-for="(items, indexs) in item.content" class="tab-swiper topicItems vux-center">
+              <div>
+                <p>
+                  <img class="avatar" :src="items.author.avatar_url"/>
+                  <span>{{items.author.loginname}}</span>
+                </p>
+                <span>{{moment(items.last_reply_at).format('YYYY-MM-DD')}}</span>
+              </div>
+              <div>{{items.title}}</div>
+            </div>
+          </swiper-item>
+        </swiper>
       </div>
     </div>
     <div v-else class="noLoginContainer">
@@ -29,13 +51,17 @@
 </template>
 
 <script>
-import { Tab, TabItem, XInput, Group } from 'vux';
-import { mapState, mapActions } from 'vuex';
+import { Tab, TabItem, XInput, Group, Swiper, SwiperItem, Sticky } from 'vux';
+import { mapState, mapActions, mapGetters } from 'vuex';
+import moment from 'moment';
 export default {
   data() {
     return {
+      inputValue: '',
       tabIndex: 0,
-      inputValue: ''
+      list: ['Topic', 'Reply'],
+      listTitle: 'Topic',
+      moment: moment,
     }
   },
   created() {
@@ -44,10 +70,15 @@ export default {
       this.getUserInfo(this.loginInfo.loginname);
     }
   },
-  computed: mapState({
-    loginInfo: state => state.personalCenter.loginInfo,
-    userInfo: state => state.personalCenter.userInfo
-  }),
+  computed: {
+    ...mapState({
+      loginInfo: state => state.personalCenter.loginInfo,
+      userInfo: state => state.personalCenter.userInfo
+    }),
+    ...mapGetters('personalCenter', [
+      'tabList'
+    ])
+  },
   mounted() {
 
   },
@@ -71,7 +102,10 @@ export default {
     Tab,
     TabItem,
     XInput,
-    Group
+    Group,
+    Swiper,
+    SwiperItem,
+    Sticky
   },
 }
 </script>

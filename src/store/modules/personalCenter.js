@@ -30,7 +30,21 @@ const actions = {
   }
 };
 
-const getters = {};
+const getters = {
+  tabList: state => {
+    console.log(state);
+    return [
+      {
+        title: 'Topic',
+        content: state.userInfo ? state.userInfo.recent_topics : []
+      },
+      {
+        title: 'Reply',
+        content: state.userInfo ? state.userInfo.recent_replies : []
+      },
+    ]
+  }
+};
 
 export default {
   namespaced: true,

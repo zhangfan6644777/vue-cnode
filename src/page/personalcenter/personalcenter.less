@@ -15,11 +15,46 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    >span:nth-of-type(2){
+      color: #FF544F;
+    }
   }
 }
 .centerContainer{
   height: 100%;
   .userInfoContainer{
+    .myTopicContainer{
+      .topicItems+.topicItems{
+        margin: 10px 0 0 0;
+      }
+      .topicItems{
+        background-color: #fff;
+        padding: 10px 0;
+        >div{
+          width: 90%;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        >div:nth-of-type(1){
+          font-size: 12px;
+          .avatar{
+            width: calc(600vw/75);
+            height: calc(600vw/75);
+            border-radius: 5px;
+            margin-right: 10px;
+          }
+          p{
+            display: flex;
+            align-items: center;
+          }
+        }
+        >div:nth-of-type(2){
+
+        }
+      }
+    }
   }
   .noLoginContainer{
     height: 100%;
